@@ -1,0 +1,643 @@
+{
+  "schema_version": "1.0.0",
+  "story_id": "old_manor_case",
+  "title": "旧庄园失踪调查",
+  "entry_node_id": "scene_guest_room_awake",
+  "nodes": [
+    {
+      "id": "scene_guest_room_awake",
+      "node_type": "scene",
+      "title": "客房醒来",
+      "content": {
+        "text": "你从昏沉中醒来，发现自己被反锁在庄园二楼客房。镜框歪斜，门板上残留抓痕，窗边散落着一截沾泥的布料。"
+      },
+      "scene_id": "guest_room",
+      "choices": [
+        {
+          "id": "choice_check_mirror",
+          "text": "检查镜框后方",
+          "next_node_id": "event_gain_key"
+        },
+        {
+          "id": "choice_check_door",
+          "text": "查看房门",
+          "next_node_id": "event_locked_door"
+        },
+        {
+          "id": "choice_check_window",
+          "text": "查看窗边布料",
+          "next_node_id": "event_find_cloth"
+        }
+      ],
+      "position": {
+        "x": 100,
+        "y": 100
+      }
+    },
+    {
+      "id": "event_gain_key",
+      "node_type": "event",
+      "title": "发现钥匙",
+      "content": {
+        "text": "你在镜框后摸到一把小钥匙，像是被人故意藏在这里。"
+      },
+      "effects": [
+        {
+          "type": "add_item",
+          "item_id": "small_key",
+          "quantity": 1
+        },
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_hidden_key"
+        }
+      ],
+      "next_node_id": "cond_unlock_door",
+      "position": {
+        "x": 450,
+        "y": 40
+      }
+    },
+    {
+      "id": "event_locked_door",
+      "node_type": "event",
+      "title": "门被锁住",
+      "content": {
+        "text": "门锁得很死，徒手无法打开，门板上的抓痕说明有人曾被困在这里。"
+      },
+      "effects": [
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_scratches_on_door"
+        }
+      ],
+      "next_node_id": "scene_guest_room_awake",
+      "position": {
+        "x": 450,
+        "y": 220
+      }
+    },
+    {
+      "id": "event_find_cloth",
+      "node_type": "event",
+      "title": "发现泥污布料",
+      "content": {
+        "text": "窗边遗落着一截沾有泥污和淡淡药味的布料，似乎不属于这间客房。"
+      },
+      "effects": [
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_dirty_cloth"
+        }
+      ],
+      "next_node_id": "scene_guest_room_awake",
+      "position": {
+        "x": 450,
+        "y": 380
+      }
+    },
+    {
+      "id": "cond_unlock_door",
+      "node_type": "condition",
+      "title": "是否持有钥匙",
+      "condition": {
+        "type": "item_owned",
+        "item_id": "small_key"
+      },
+      "next_node_id": "event_unlock_door",
+      "position": {
+        "x": 760,
+        "y": 40
+      }
+    },
+    {
+      "id": "event_unlock_door",
+      "node_type": "event",
+      "title": "打开房门",
+      "content": {
+        "text": "钥匙顺利转动锁芯，房门终于打开，昏暗走廊尽头传来缓慢的脚步声。"
+      },
+      "effects": [
+        {
+          "type": "change_scene",
+          "scene_id": "hall"
+        },
+        {
+          "type": "set_variable",
+          "variable": "guest_room_escaped",
+          "value": true
+        }
+      ],
+      "next_node_id": "dialogue_butler_intro",
+      "position": {
+        "x": 1050,
+        "y": 40
+      }
+    },
+    {
+      "id": "dialogue_butler_intro",
+      "node_type": "dialogue",
+      "title": "管家现身",
+      "content": {
+        "speaker_id": "butler",
+        "text": "请原谅这番失礼。我本无意将你卷入此事，但庄主失踪了，而昨夜庄园里还来过一位访客。"
+      },
+      "choices": [
+        {
+          "id": "choice_ask_visitor",
+          "text": "询问访客身份",
+          "next_node_id": "event_search_study"
+        },
+        {
+          "id": "choice_accept_investigation",
+          "text": "答应协助调查",
+          "next_node_id": "event_search_study"
+        }
+      ],
+      "position": {
+        "x": 1350,
+        "y": 40
+      }
+    },
+    {
+      "id": "event_search_study",
+      "node_type": "scene",
+      "title": "调查书房",
+      "content": {
+        "text": "你进入书房调查，桌面凌乱，地毯上留有拖拽痕迹，角落里还有未被收走的杂物。"
+      },
+      "scene_id": "study",
+      "choices": [
+        {
+          "id": "choice_check_medical_box",
+          "text": "检查遗落的医疗箱",
+          "next_node_id": "event_find_medical_box"
+        },
+        {
+          "id": "choice_check_cufflink",
+          "text": "检查袖扣",
+          "next_node_id": "event_find_cufflink"
+        },
+        {
+          "id": "choice_check_note",
+          "text": "翻看手记残页",
+          "next_node_id": "event_find_note"
+        }
+      ],
+      "position": {
+        "x": 1650,
+        "y": 40
+      }
+    },
+    {
+      "id": "event_find_medical_box",
+      "node_type": "event",
+      "title": "发现医疗箱",
+      "content": {
+        "text": "你在书房角落发现一只遗落的医疗箱，内部器具齐全，不像庄园主人会持有的物品。"
+      },
+      "effects": [
+        {
+          "type": "add_item",
+          "item_id": "medical_box",
+          "quantity": 1
+        },
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_medical_box"
+        }
+      ],
+      "next_node_id": "cond_identify_doctor",
+      "position": {
+        "x": 2000,
+        "y": -80
+      }
+    },
+    {
+      "id": "event_find_cufflink",
+      "node_type": "event",
+      "title": "发现诊所袖扣",
+      "content": {
+        "text": "你拾起一枚袖扣，其背面刻有诊所标记，显然属于一名有医学背景的来客。"
+      },
+      "effects": [
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_clinic_cufflink"
+        }
+      ],
+      "next_node_id": "cond_identify_doctor",
+      "position": {
+        "x": 2000,
+        "y": 80
+      }
+    },
+    {
+      "id": "event_find_note",
+      "node_type": "event",
+      "title": "发现手记残页",
+      "content": {
+        "text": "残页上记录着药剂剂量与症状观察，字迹严谨，像出自受过训练的医生之手。"
+      },
+      "effects": [
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_doctor_note"
+        }
+      ],
+      "next_node_id": "cond_identify_doctor",
+      "position": {
+        "x": 2000,
+        "y": 240
+      }
+    },
+    {
+      "id": "cond_identify_doctor",
+      "node_type": "condition",
+      "title": "是否锁定访客为医生",
+      "condition": {
+        "type": "all",
+        "conditions": [
+          {
+            "type": "clue_owned",
+            "clue_id": "clue_medical_box"
+          },
+{
+            "type": "any",
+            "conditions": [
+              {
+                "type": "clue_owned",
+                "clue_id": "clue_clinic_cufflink"
+              },
+              {
+                "type": "clue_owned",
+                "clue_id": "clue_doctor_note"
+              }
+            ]
+          }
+        ]
+      },
+      "next_node_id": "event_identify_doctor",
+      "position": {
+        "x": 2350,
+        "y": 80
+      }
+    },
+    {
+      "id": "event_identify_doctor",
+      "node_type": "event",
+      "title": "确认访客身份",
+      "content": {
+        "text": "你基本可以确认，昨夜来访者不是普通客人，而是一名受邀前来的医生。"
+      },
+      "effects": [
+        {
+          "type": "set_variable",
+          "variable": "visitor_is_doctor",
+          "value": true
+        },
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_visitor_is_doctor"
+        }
+      ],
+      "next_node_id": "scene_search_basement_traces",
+      "position": {
+        "x": 2650,
+        "y": 80
+      }
+    },
+    {
+      "id": "scene_search_basement_traces",
+      "node_type": "scene",
+      "title": "寻找地下室痕迹",
+      "content": {
+        "text": "进一步搜索后，你发现通往地下的拖痕、带有药剂气味的手套，以及庄主留下的古怪笔记。"
+      },
+      "scene_id": "corridor",
+      "choices": [
+        {
+          "id": "choice_check_drag_marks",
+          "text": "检查拖痕",
+          "next_node_id": "event_find_drag_marks"
+        },
+        {
+          "id": "choice_check_gloves",
+          "text": "检查手套",
+          "next_node_id": "event_find_gloves"
+        },
+        {
+          "id": "choice_check_ritual_notes",
+          "text": "查看庄主笔记",
+          "next_node_id": "event_find_ritual_notes"
+        }
+      ],
+      "position": {
+        "x": 2950,
+        "y": 80
+      }
+    },
+    {
+      "id": "event_find_drag_marks",
+      "node_type": "event",
+      "title": "发现拖痕",
+      "content": {
+        "text": "沉重物体被拖向地下室方向，痕迹并不久远。"
+      },
+      "effects": [
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_drag_marks"
+        }
+      ],
+      "next_node_id": "cond_basement_truth",
+      "position": {
+        "x": 3300,
+        "y": -80
+      }
+    },
+    {
+      "id": "event_find_gloves",
+      "node_type": "event",
+      "title": "发现药味手套",
+      "content": {
+        "text": "一副手套残留浓烈药剂味，显然曾用于某种医疗或实验行为。"
+      },
+      "effects": [
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_gloves_with_chemical_smell"
+        }
+      ],
+      "next_node_id": "cond_basement_truth",
+      "position": {
+        "x": 3300,
+        "y": 80
+      }
+    },
+    {
+      "id": "event_find_ritual_notes",
+      "node_type": "event",
+      "title": "发现仪式笔记",
+      "content": {
+        "text": "庄主的笔记中提及献祭、药剂配比与地下室布置，内容充满禁忌意味。"
+      },
+      "effects": [
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_ritual_notes"
+        }
+      ],
+      "next_node_id": "cond_basement_truth",
+      "position": {
+        "x": 3300,
+        "y": 240
+      }
+    },
+    {
+      "id": "cond_basement_truth",
+      "node_type": "condition",
+      "title": "是否确认地下室活动",
+      "condition": {
+        "type": "all",
+        "conditions": [
+          {
+            "type": "clue_owned",
+            "clue_id": "clue_visitor_is_doctor"
+          },
+          {
+            "type": "clue_owned",
+            "clue_id": "clue_ritual_notes"
+          },
+          {
+            "type": "any",
+            "conditions": [
+              {
+                "type": "clue_owned",
+                "clue_id": "clue_drag_marks"
+              },
+              {
+                "type": "clue_owned",
+                "clue_id": "clue_gloves_with_chemical_smell"
+              }
+            ]
+          }
+        ]
+      },
+      "next_node_id": "event_basement_revelation",
+      "position": {
+        "x": 3650,
+        "y": 80
+      }
+    },
+    {
+      "id": "event_basement_revelation",
+      "node_type": "event",
+      "title": "地下室真相",
+      "content": {
+        "text": "你确认医生曾与庄主在地下室共同进行某种活动，而那并非普通诊疗，而是一场邪恶仪式。"
+      },
+      "effects": [
+        {
+          "type": "set_variable",
+          "variable": "basement_ritual_known",
+          "value": true
+        },
+        {
+          "type": "gain_clue",
+          "clue_id": "clue_basement_ritual"
+        }
+      ],
+      "next_node_id": "event_doctor_murdered",
+      "position": {
+        "x": 3950,
+        "y": 80
+      }
+    },
+    {
+      "id": "event_doctor_murdered",
+      "node_type": "event",
+      "title": "医生被庄主杀害",
+      "content": {
+        "text": "所有线索最终拼出真相：庄主沉迷邪恶仪式，在地下室利用医生协助实验，并在医生试图阻止或知晓过多后将其杀害。"
+      },
+      "effects": [
+        {
+          "type": "set_variable",
+          "variable": "doctor_murder_truth_known",
+          "value": true
+        },
+        {
+          "type": "update_quest_state",
+          "quest_id": "quest_find_lord",
+          "state": "completed"
+        }
+      ],
+      "next_node_id": "end_truth_revealed",
+      "position": {
+        "x": 4250,
+        "y": 80
+      }
+    },
+    {
+      "id": "end_truth_revealed",
+      "node_type": "end",
+      "title": "真相揭晓",
+      "content": {
+        "text": "你揭开了庄园失踪案的真相：庄主并非受害者，而是邪恶仪式的主导者，医生只是被利用后灭口的牺牲品。"
+      },
+      "position": {
+        "x": 4550,
+        "y": 80
+      }
+    }
+  ],
+  "variables": [
+    {
+      "id": "guest_room_escaped",
+      "data_type": "bool",
+      "default_value": false
+    },
+    {
+      "id": "visitor_is_doctor",
+      "data_type": "bool",
+      "default_value": false
+    },
+    {
+      "id": "basement_ritual_known",
+      "data_type": "bool",
+      "default_value": false
+    },
+    {
+      "id": "doctor_murder_truth_known",
+      "data_type": "bool",
+      "default_value": false
+    },
+    {
+      "id": "butler_trust",
+      "data_type": "int",
+      "default_value": 0
+    }
+  ],
+  "characters": [
+    {
+      "id": "butler",
+      "name": "管家"
+    },
+    {
+      "id": "lord",
+      "name": "庄主"
+    },
+    {
+      "id": "doctor",
+      "name": "医生"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "guest_room",
+      "name": "客房"
+    },
+    {
+      "id": "hall",
+      "name": "庄园走廊"
+    },
+    {
+      "id": "study",
+      "name": "书房"
+    },
+    {
+      "id": "corridor",
+      "name": "地下室入口走廊"
+    },
+    {
+      "id": "basement",
+      "name": "地下室"
+    }
+  ],
+  "items": [
+    {
+      "id": "small_key",
+      "name": "小钥匙"
+    },
+    {
+      "id": "medical_box",
+      "name": "医疗箱"
+    }
+  ],
+  "clues": [
+    {
+      "id": "clue_hidden_key",
+      "name": "镜框后的钥匙"
+    },
+    {
+      "id": "clue_scratches_on_door",
+      "name": "门板抓痕"
+    },
+    {
+      "id": "clue_dirty_cloth",
+      "name": "泥污布料"
+    },
+    {
+      "id": "clue_medical_box",
+      "name": "遗落的医疗箱"
+    },
+    {
+      "id": "clue_clinic_cufflink",
+      "name": "诊所袖扣"
+    },
+    {
+      "id": "clue_doctor_note",
+      "name": "医生手记残页"
+    },
+    {
+      "id": "clue_visitor_is_doctor",
+      "name": "访客是医生"
+    },
+    {
+      "id": "clue_drag_marks",
+      "name": "通往地下室的拖痕"
+    },
+    {
+      "id": "clue_gloves_with_chemical_smell",
+      "name": "带药剂味的手套"
+    },
+    {
+      "id": "clue_ritual_notes",
+      "name": "庄主的仪式笔记"
+    },
+    {
+      "id": "clue_basement_ritual",
+      "name": "地下室邪恶仪式"
+    }
+  ],
+  "quests": [
+    {
+      "id": "quest_find_lord",
+      "name": "调查庄主失踪",
+      "state": "completed",
+      "objectives": [
+        {
+          "id": "obj_escape_room",
+          "description": "逃出被锁住的客房",
+          "state": "done"
+        },
+        {
+          "id": "obj_meet_butler",
+          "description": "与管家交谈并接受调查委托",
+          "state": "done"
+        },
+        {
+          "id": "obj_identify_visitor",
+          "description": "确认来访者身份",
+          "state": "done"
+        },
+        {
+          "id": "obj_find_basement_truth",
+          "description": "查明地下室发生的事",
+          "state": "done"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/story_graph_editor/ui/story_graph_main_view.gd" id="1_view"]
+[ext_resource type="PackedScene" path="res://addons/story_graph_editor/ui/inspector/node_inspector.tscn" id="2_inspector"]
+
+[node name="StoryGraphMainView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_view")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Toolbar" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="BtnNew" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "新建故事"
+
+[node name="BtnImport" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "导入剧本"
+
+[node name="BtnParse" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "重新解析"
+
+[node name="BtnLayout" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "自动排版"
+
+[node name="BtnValidate" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "校验"
+
+[node name="BtnPlay" type="Button" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "试玩"
+
+[node name="VSeparator" type="VSeparator" parent="VBox/Toolbar"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="VBox/Toolbar"]
+layout_mode = 2
+text = "当前故事: 未命名"
+
+[node name="MainSplit" type="VSplitContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 500
+
+[node name="WorkspaceSplit" type="HSplitContainer" parent="VBox/MainSplit"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 200
+
+[node name="Sidebar" type="TabContainer" parent="VBox/MainSplit/WorkspaceSplit"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 0)
+
+[node name="剧情图谱" type="ItemList" parent="VBox/MainSplit/WorkspaceSplit/Sidebar"]
+layout_mode = 2
+
+[node name="节点列表" type="Tree" parent="VBox/MainSplit/WorkspaceSplit/Sidebar"]
+visible = false
+layout_mode = 2
+
+[node name="角色" type="ItemList" parent="VBox/MainSplit/WorkspaceSplit/Sidebar"]
+visible = false
+layout_mode = 2
+
+[node name="变量" type="ItemList" parent="VBox/MainSplit/WorkspaceSplit/Sidebar"]
+visible = false
+layout_mode = 2
+
+[node name="场景" type="ItemList" parent="VBox/MainSplit/WorkspaceSplit/Sidebar"]
+visible = false
+layout_mode = 2
+
+[node name="导入记录" type="ItemList" parent="VBox/MainSplit/WorkspaceSplit/Sidebar"]
+visible = false
+layout_mode = 2
+
+[node name="RightSplit" type="HSplitContainer" parent="VBox/MainSplit/WorkspaceSplit"]
+layout_mode = 2
+split_offset = 600
+
+[node name="MainCanvas" type="TabContainer" parent="VBox/MainSplit/WorkspaceSplit/RightSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Graph视图" type="GraphEdit" parent="VBox/MainSplit/WorkspaceSplit/RightSplit/MainCanvas"]
+layout_mode = 2
+right_disconnects = true
+
+[node name="大纲视图" type="Tree" parent="VBox/MainSplit/WorkspaceSplit/RightSplit/MainCanvas"]
+visible = false
+layout_mode = 2
+
+[node name="表格视图" type="Tree" parent="VBox/MainSplit/WorkspaceSplit/RightSplit/MainCanvas"]
+visible = false
+layout_mode = 2
+
+[node name="试玩预览" type="Control" parent="VBox/MainSplit/WorkspaceSplit/RightSplit/MainCanvas"]
+visible = false
+layout_mode = 2
+
+[node name="InspectorPanel" type="ScrollContainer" parent="VBox/MainSplit/WorkspaceSplit/RightSplit"]
+layout_mode = 2
+custom_minimum_size = Vector2(250, 0)
+
+[node name="NodeInspector" parent="VBox/MainSplit/WorkspaceSplit/RightSplit/InspectorPanel" instance=ExtResource("2_inspector")]
+layout_mode = 2
+
+[node name="BottomPanel" type="TabContainer" parent="VBox/MainSplit"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 150)
+
+[node name="校验结果" type="RichTextLabel" parent="VBox/MainSplit/BottomPanel"]
+layout_mode = 2
+text = "无校验错误。"
+
+[node name="解析日志" type="RichTextLabel" parent="VBox/MainSplit/BottomPanel"]
+visible = false
+layout_mode = 2
+
+[node name="运行日志" type="RichTextLabel" parent="VBox/MainSplit/BottomPanel"]
+visible = false
+layout_mode = 2
+
+[node name="引用关系" type="Tree" parent="VBox/MainSplit/BottomPanel"]
+visible = false
+layout_mode = 2

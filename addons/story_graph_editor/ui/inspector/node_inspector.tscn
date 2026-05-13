@@ -1,0 +1,110 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/story_graph_editor/ui/inspector/node_inspector.gd" id="1_script"]
+
+[node name="NodeInspector" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_script")
+
+[node name="HeaderLabel" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "未选中节点"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ContentVBox" type="VBoxContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GroupBasic" type="VBoxContainer" parent="Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/ContentVBox/GroupBasic"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "基础信息"
+
+[node name="Grid" type="GridContainer" parent="Scroll/ContentVBox/GroupBasic"]
+layout_mode = 2
+columns = 2
+
+[node name="LblID" type="Label" parent="Scroll/ContentVBox/GroupBasic/Grid"]
+layout_mode = 2
+text = "ID"
+
+[node name="EditID" type="LineEdit" parent="Scroll/ContentVBox/GroupBasic/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblType" type="Label" parent="Scroll/ContentVBox/GroupBasic/Grid"]
+layout_mode = 2
+text = "类型"
+
+[node name="OptionType" type="OptionButton" parent="Scroll/ContentVBox/GroupBasic/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 8
+popup/item_0/text = "scene"
+popup/item_0/id = 0
+popup/item_1/text = "dialogue"
+popup/item_1/id = 1
+popup/item_2/text = "choice"
+popup/item_2/id = 2
+popup/item_3/text = "condition"
+popup/item_3/id = 3
+popup/item_4/text = "event"
+popup/item_4/id = 4
+popup/item_5/text = "action"
+popup/item_5/id = 5
+popup/item_6/text = "jump"
+popup/item_6/id = 6
+popup/item_7/text = "end"
+popup/item_7/id = 7
+
+[node name="LblTitle" type="Label" parent="Scroll/ContentVBox/GroupBasic/Grid"]
+layout_mode = 2
+text = "标题"
+
+[node name="EditTitle" type="LineEdit" parent="Scroll/ContentVBox/GroupBasic/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator2" type="HSeparator" parent="Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="GroupContent" type="VBoxContainer" parent="Scroll/ContentVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/ContentVBox/GroupContent"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "内容与摘要"
+
+[node name="LblSummary" type="Label" parent="Scroll/ContentVBox/GroupContent"]
+layout_mode = 2
+text = "摘要 (Summary)"
+
+[node name="EditSummary" type="TextEdit" parent="Scroll/ContentVBox/GroupContent"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="LblText" type="Label" parent="Scroll/ContentVBox/GroupContent"]
+layout_mode = 2
+text = "正文 (Text)"
+
+[node name="EditText" type="TextEdit" parent="Scroll/ContentVBox/GroupContent"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
